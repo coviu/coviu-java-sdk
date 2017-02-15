@@ -27,6 +27,7 @@ Add this dependency to your project's POM:
 
 ## Getting Started
 
+The full set of api documentations is available in the [**api director**](api/session/README.md).
 
 ### Create a session
 
@@ -164,7 +165,7 @@ try {
     SessionPage result = api.getSessionPage(page, pageSize, startTime, endTime, includeCanceled, deletedParticipants, state, order);
     System.out.println(result);
 } catch (ApiException e) {
-    ...
+    //...
 }
 ```
 
