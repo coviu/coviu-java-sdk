@@ -35,7 +35,7 @@ import org.joda.time.DateTime;
 /**
  * SessionUpdateRequest
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-02-15T10:12:43.225+11:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-02-15T11:45:03.343+11:00")
 public class SessionUpdateRequest   {
   @SerializedName("picture")
   private String picture = null;

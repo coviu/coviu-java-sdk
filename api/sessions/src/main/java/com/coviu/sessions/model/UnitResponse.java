@@ -34,7 +34,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * UnitResponse
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-02-15T10:12:43.225+11:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-02-15T11:45:03.343+11:00")
 public class UnitResponse   {
   @SerializedName("ok")
   private Boolean ok = null;

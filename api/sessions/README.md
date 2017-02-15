@@ -1,84 +1,5 @@
 # coviu-sdk-sessions
 
-## Requirements
-
-Building the API client library requires [Maven](https://maven.apache.org/) to be installed.
-
-## Installation
-
-To install the API client library to your local Maven repository, simply execute:
-
-```shell
-mvn install
-```
-
-To deploy it to a remote Maven repository instead, configure the settings of the repository and execute:
-
-```shell
-mvn deploy
-```
-
-Refer to the [official documentation](https://maven.apache.org/plugins/maven-deploy-plugin/usage.html) for more information.
-
-### Maven users
-
-Add this dependency to your project's POM:
-
-```xml
-<dependency>
-    <groupId>com.coviu</groupId>
-    <artifactId>coviu-sdk-sessions</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <scope>compile</scope>
-</dependency>
-```
-
-### Others
-
-At first generate the JAR by executing:
-
-    mvn package
-
-Then manually install the following JARs:
-
-* target/coviu-sdk-sessions-1.0-SNAPSHOT.jar
-* target/lib/*.jar
-
-## Getting Started
-
-Please follow the [installation](#installation) instruction and execute the following Java code:
-
-```java
-
-import com.coviu.core.*;
-import com.coviu.core.auth.*;
-import com.coviu.sessions.model.*;
-import com.coviu.sessions.api.SessionApi;
-
-import java.io.File;
-import java.util.*;
-
-public class SessionApiExample {
-
-    public static void main(String[] args) {
-        ApiClient client = new ApiClient();
-        client.setCredentials("myApiKey", "myApiKeySecret", null);
-
-        SessionApi api = new SessionApi(client);
-        String sessionId = "sessionId_example"; // String | The session id of the session that the operation applies to.
-        ParticipantCreationRequest body = new ParticipantCreationRequest(); // ParticipantCreationRequest | 
-        try {
-            Participant result = apiInstance.addSessionParticipant(sessionId, body);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling SessionApi#addSessionParticipant");
-            e.printStackTrace();
-        }
-    }
-}
-
-```
-
 ## Documentation for API Endpoints
 
 All URIs are relative to *https://api.coviu.com/v1*
@@ -124,8 +45,3 @@ Authentication schemes defined for the API:
 ## Recommendation
 
 It's recommended to create an instance of `ApiClient` per thread in a multithreaded environment to avoid any potential issues.
-
-## Author
-
-
-
