@@ -146,6 +146,50 @@ Note that it is also possible to add participants directly to the session when y
             .addParticipantsItem(pcr);
 ```
 
+### List sessions
+
+It's possible to recover a list of sessions that have been booked, held, deleted etc. Sessions are returned one page at a time.
+
+```java
+SessionApi api = new SessionApi(client);
+Integer page = 0; // Integer | The page number to return
+Integer pageSize = 200; // Integer | The number of sessions per page. Max 200. Default 200.
+DateTime startTime = DateTime().now(); // DateTime | Includes sessions that start at or after start_time.
+DateTime endTime = DateTime().now().plusDays(30); // DateTime | Include sessions that start upto and including end_time..
+Boolean includeCanceled = false; // Boolean | Includes sessions that have been canceled.
+Boolean deletedParticipants = false; // Boolean | Also include participants that have been removed from the session.
+String state = null; // String | Return only sessions containing participants with the supplied state value.
+String order = null; // String | Order the results. forward returns oldest first by start time. backwards includes newest first by startime.
+try {
+    SessionPage result = api.getSessionPage(page, pageSize, startTime, endTime, includeCanceled, deletedParticipants, state, order);
+    System.out.println(result);
+} catch (ApiException e) {
+    ...
+}
+```
+
+### Update a session
+
+A session may be updated by e.g. changing the start and end times, or setting name for the session
+
+
+```java
+        SessionUpdateRequest update = new SessionUpdateRequest()
+                .startTime(DateTime.now().plusDays(1).plusHours(1))
+                .endTime(DateTime.now().plusDays(1).plusHours(2))
+                .sessionName("Fun time with coviu");
+        Session s2 = api.updateSession(s.getSessionId(), update);
+```
+
+
+### Cancel a session
+
+A session may also be canceled, meaning it will no longer take place, no new participants can be added or removed, no updates can be applied. This operation can not be undone.
+
+```java
+        api.deleteSession(s.getSessionId());
+```
+
 ## Recommendation
 
 It's recommended to create an instance of `ApiClient` per thread in a multithreaded environment to avoid any potential issues.
