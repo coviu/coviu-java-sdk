@@ -191,6 +191,12 @@ A session may also be canceled, meaning it will no longer take place, no new par
         api.deleteSession(s.getSessionId());
 ```
 
+### OAuth2
+
+Coviu uses OAuth2 for controlling access to resources. The coviu java sdk takes care of recovering, using, and refreshing access tokens. There are two use cases for access the coviu api.
+Firstly you may wish to access the api on behalf of the owner of the client credentials, that is to say follow the flow for the client credentials grant outlined in https://tools.ietf.org/html/rfc6749#section-4.4.
+In this situation, you only need to supply the sdk with your credentials. Your account may incurr 
+
 ## Recommendation
 
 It's recommended to create an instance of `ApiClient` per thread in a multithreaded environment to avoid any potential issues.

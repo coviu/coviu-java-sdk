@@ -4,15 +4,9 @@
   <artifactId>coviu-sdk-auth</artifactId>
   <packaging>jar</packaging>
   <name>coviu-sdk-auth</name>
-  <version>0.1-SNAPSHOT</version>
-  <url>https://github.com/coviu/coviu-java-sdk-auth</url>
+  <version>1.0-SNAPSHOT</version>
+  <url>https://github.com/coviu/coviu-java-sdk/auth</url>
   <description>Authentication behaviour for the coviu java sdk.</description>
-  <scm>
-    <connection>scm:git:git@github.com:coviu/coviu-java-sdk-auth.git</connection>
-    <developerConnection>scm:git:git@github.com:coviu/coviu-java-sdk-auth.git</developerConnection>
-    <url>https://github.com/coviu/coviu-java-sdk-auth</url>
-    <tag>HEAD</tag>
-  </scm>
   <prerequisites>
     <maven>2.2.0</maven>
   </prerequisites>

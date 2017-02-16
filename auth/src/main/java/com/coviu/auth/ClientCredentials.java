@@ -14,4 +14,8 @@ public class ClientCredentials {
     public String basic() {
         return Credentials.basic(this.apiKey, this.apiKeySecret);
     }
+
+    public String getApiKey() {
+        return apiKey;
+    }
 }

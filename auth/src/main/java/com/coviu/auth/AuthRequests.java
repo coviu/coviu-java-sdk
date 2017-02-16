@@ -23,8 +23,16 @@ public class AuthRequests {
 
     public static Request authorizationCode(String code, Config config) {
         return postBody(new FormEncodingBuilder()
-                .add("grant_type", "code")
+                .add("grant_type", "authorization_code")
                 .add("code", code)
+                .build(), config);
+    }
+
+    public static Request password(String email, String password, Config config) {
+        return postBody(new FormEncodingBuilder()
+                .add("grant_type", "password")
+                .add("username", email)
+                .add("password", password)
                 .build(), config);
     }
 

@@ -62,6 +62,20 @@ public class AuthClient {
         return authz.getAccessToken();
     }
 
+    public Authorization useAuthorizationCode(String code) {
+        GrantResponse g = client.expectJsonOf(
+            AuthRequests.authorizationCode(code, config),
+            GrantResponse.class);
+        return Authorization.newAuthorization(g);
+    }
+
+    public Authorization usernamePasswordAuthorization(String username, String password) {
+        GrantResponse g = client.expectJsonOf(
+                AuthRequests.password(username, password, config),
+                GrantResponse.class);
+        return Authorization.newAuthorization(g);
+    }
+
     public Authorization forceRefresh() {
         return refresh(getActiveAuthorization());
     }
@@ -73,5 +87,9 @@ public class AuthClient {
                 o.onRefresh(authorization);
             }
         });
+    }
+
+    public ClientCredentials getCredentials() {
+        return config.getBasicAuthAuthenticator().getCredentials();
     }
 }

@@ -57,6 +57,10 @@ public class Authorization {
         return receivedAt;
     }
 
+    public GrantResponse getGrant() {
+        return grant;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

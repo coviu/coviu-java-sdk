@@ -36,7 +36,7 @@ public class HttpClient {
                 Gson gson = new GsonBuilder().create();
                 return gson.fromJson(res.body().string(), returnType);
             }
-            throw new RuntimeException("");
+            throw new RuntimeException("Failed to parse json: " + res.body().string() + ". Expected something for " + returnType.toString());
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -44,18 +44,7 @@ public class HttpClient {
 
     public static interface Authenticator {
         public Request.Builder apply(Request.Builder builder);
-    }
-
-    public static class OAuth2Authenticator implements Authenticator {
-        private AuthClient auth;
-
-        public OAuth2Authenticator(AuthClient auth) {
-            this.auth = auth;
-        }
-
-        public Request.Builder apply(Request.Builder builder) {
-            return builder.addHeader("Authorization" , "Bearer " + auth.getAccessToken());
-        }
+        public ClientCredentials getCredentials();
     }
 
     public static class BasicAuthAuthenticator implements Authenticator {
@@ -67,6 +56,10 @@ public class HttpClient {
 
         public Request.Builder apply(Request.Builder builder) {
             return builder.addHeader("Authorization" , credentials.basic());
+        }
+
+        public ClientCredentials getCredentials() {
+            return credentials;
         }
     }
 }

@@ -145,16 +145,16 @@ public class ApiClient {
 
     private HttpLoggingInterceptor loggingInterceptor;
 
-    public static interface TokenObserver {
-        public void observe(String token);
+    public static interface AuthorizationObserver {
+        public void observe(String authorization);
     }
 
-    private TokenObserver tokenObserver;
+    private AuthorizationObserver authorizationObserver;
     
     private com.coviu.RefreshObserver refreshObserver = new com.coviu.RefreshObserver() {
         public void onRefresh(com.coviu.auth.Authorization auth) {
-            if (tokenObserver != null) {
-                tokenObserver.observe(auth.serialise());
+            if (authorizationObserver != null) {
+                authorizationObserver.observe(auth.serialise());
             }
         }
     };
@@ -434,6 +434,7 @@ public class ApiClient {
                             return basicAuth;
                         }
                 }, null, authz));
+                oauth.getAuthClient().setRefreshObserver(refreshObserver);
                 return;
             }
         }
@@ -442,14 +443,37 @@ public class ApiClient {
 
 
     /**
-     * Set the token observer that receives updates to the tokens being used by authenticators.
-     * @param tokenObserver the new token observer;
-     */    
-    public void setTokenObserver(TokenObserver tokenObserver) {
-        this.tokenObserver = tokenObserver;
+     * Set the auhorization observer that receives updates to the authorization being used by authenticators.
+     * @param authorizationObserver the new authorization observer;
+     */
+    public void setAuthorizationObserver(AuthorizationObserver authorizationObserver) {
+        this.authorizationObserver = authorizationObserver;
     }
 
+    public void setAuthorization(String authorization) {
+        com.coviu.auth.Authorization authz = com.coviu.auth.Authorization.load(authorization);
+        for (Authentication auth : authentications.values()) {
+            if (auth instanceof OAuth) {
+                OAuth oauth = (OAuth) auth;
+                oauth.getAuthClient().setAuthorization(authz);
+                return;
+            }
+        }
+        throw new RuntimeException("No OAuth configured!");
+    }
 
+    /**
+     *
+     */
+    public String useAuthorizationCode(String code) {
+        for (Authentication auth : authentications.values()) {
+            if (auth instanceof OAuth) {
+                OAuth oauth = (OAuth) auth;
+                return oauth.getAuthClient().useAuthorizationCode(code).serialise();
+            }
+        }
+        throw new RuntimeException("No OAuth configured!");
+    }
     /*
      * Parse date or date time in string format into Date object.
      *
