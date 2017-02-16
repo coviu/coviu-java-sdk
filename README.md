@@ -227,10 +227,6 @@ See instructions on setting up your account for allowing the oauth2 authorizatio
 
         // Create a session for that user.
         SessionApi api = new SessionApi(c);
-
-
-
-        // .... now book a session for that use.
         Session session = api.createSession(scr);
 ```
 
