@@ -175,11 +175,11 @@ A session may be updated by e.g. changing the start and end times, or setting na
 
 
 ```java
-        SessionUpdateRequest update = new SessionUpdateRequest()
-                .startTime(DateTime.now().plusDays(1).plusHours(1))
-                .endTime(DateTime.now().plusDays(1).plusHours(2))
-                .sessionName("Fun time with coviu");
-        Session s2 = api.updateSession(s.getSessionId(), update);
+SessionUpdateRequest update = new SessionUpdateRequest()
+        .startTime(DateTime.now().plusDays(1).plusHours(1))
+        .endTime(DateTime.now().plusDays(1).plusHours(2))
+        .sessionName("Fun time with coviu");
+Session s2 = api.updateSession(s.getSessionId(), update);
 ```
 
 
@@ -195,8 +195,52 @@ A session may also be canceled, meaning it will no longer take place, no new par
 
 Coviu uses OAuth2 for controlling access to resources. The coviu java sdk takes care of recovering, using, and refreshing access tokens. There are two use cases for access the coviu api.
 Firstly you may wish to access the api on behalf of the owner of the client credentials, that is to say follow the flow for the client credentials grant outlined in https://tools.ietf.org/html/rfc6749#section-4.4.
-In this situation, you only need to supply the sdk with your credentials. Your account may incurr 
+In this situation, you only need to supply the sdk with your credentials. Your account may incur charges for sessions held.
 
+```java
+ApiClient c = new ApiClient();
+// Null for the `authorization` parameter will result in the sdk
+// attempting to recover an authorization for the owner of the key and secret.
+c.setCredentials(key, secret, null);
+```
+
+The second approach follows the flow for OAuth2 authorization code grant https://tools.ietf.org/html/rfc6749#section-4.1. Once an authorization code has 
+been obtained for a user, it may be used to obtained an authorization for that user. This approach wil incur no charges to you, but may result in charges for
+the user, depending on their account type.
+
+See instructions on setting up your account for allowing the oauth2 authorization code grant.
+
+```java
+ApiClient c = new ApiClient();
+// Initially we need to act as ourselves.
+c.setCredentials(key, secret, null);
+
+// Use the authorization code to obtain an authorization for the user
+String authorization = c.useAuthorizationCode("auth code ...");
+
+// Start to use this authorization
+c.setAuthorization(authorization);
+
+// Or create a new Client
+ApiClient c2 = new ApiClient();
+c.setCredentials(key, secret, authorization);
+
+// Create a session for that user.
+SessionApi api = new SessionApi(c);
+Session session = api.createSession(scr);
+```
+
+Regardless of which approach you take, you'll want to detect when your access token has been refreshed, and store that for next time.
+
+```java
+ApiClient c = new ApiClient();
+
+c.setAuthorizationObserver(new ApiClient.AuthorizationObserver(){
+    public void observe(String authorization) {
+        // Store this authorization for later.
+    }
+});
+```
 ## Recommendation
 
 It's recommended to create an instance of `ApiClient` per thread in a multithreaded environment to avoid any potential issues.
