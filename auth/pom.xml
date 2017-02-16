@@ -10,7 +10,11 @@
   <prerequisites>
     <maven>2.2.0</maven>
   </prerequisites>
-
+  <scm>
+    <connection>scm:git:https://github.com/coviu/coviu-java-sdk.git</connection>
+    <developerConnection>scm:git:https://github.com/coviu/coviu-java-sdk.git</developerConnection>
+    <url>https://github.com/coviu/coviu-java-sdk</url>
+  </scm>
   <licenses>
     <license>
       <name>MIT</name>
@@ -24,7 +28,7 @@
       <name>Coviu</name>
       <email>support@coviu.com</email>
       <organization>Coviu Pty Ltd</organization>
-      <organizationUrl>https://coviu.com</organizationUrl>
+      <organizationUrl>https://www.coviu.com</organizationUrl>
     </developer>
   </developers>
 
@@ -157,7 +161,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.5</version>
+            <version>1.6</version>
             <executions>
               <execution>
                 <id>sign-artifacts</id>

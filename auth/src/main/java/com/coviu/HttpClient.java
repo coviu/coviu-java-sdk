@@ -36,7 +36,7 @@ public class HttpClient {
                 Gson gson = new GsonBuilder().create();
                 return gson.fromJson(res.body().string(), returnType);
             }
-            throw new RuntimeException("Failed to parse json: " + res.body().string() + ". Expected something for " + returnType.toString());
+            throw new RuntimeException("HTTP request failed. Status: " + res.code() + ". Body: " + res.body().string());
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
