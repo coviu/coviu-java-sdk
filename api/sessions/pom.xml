@@ -6,12 +6,12 @@
   <packaging>jar</packaging>
   <name>coviu-sdk</name>
   <version>0.1.0</version>
-  <url></url>
-  <description></description>
+  <url>https://github.com/coviu/coviu-java-sdk/auth</url>
+  <description>Coviu sdk session api client library.</description>
   <scm>
-    <connection></connection>
-    <developerConnection></developerConnection>
-    <url></url>
+    <connection>scm:git:https://github.com/coviu/coviu-java-sdk.git</connection>
+    <developerConnection>scm:git:https://github.com/coviu/coviu-java-sdk.git</developerConnection>
+    <url>https://github.com/coviu/coviu-java-sdk</url>
   </scm>
   <prerequisites>
     <maven>2.2.0</maven>
