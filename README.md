@@ -19,8 +19,7 @@ Add this dependency to your project's POM:
 <dependency>
     <groupId>com.coviu</groupId>
     <artifactId>coviu-sdk</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <scope>compile</scope>
+    <version>0.1.0</version>
 </dependency>
 ```
 
