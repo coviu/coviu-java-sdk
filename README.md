@@ -194,12 +194,13 @@ A session may also be canceled, meaning it will no longer take place, no new par
 ### OAuth2
 
 Coviu uses OAuth2 for controlling access to resources. The coviu java sdk takes care of recovering, using, and refreshing access tokens. There are two use cases for access the coviu api.
-Firstly you may wish to access the api on behalf of the owner of the client credentials, that is to say follow the flow for the client credentials grant outlined inhttps://tools.ietf.org/html/rfc6749#section-4.4.
+Firstly you may wish to access the api on behalf of the owner of the client credentials, that is to say follow the flow for the client credentials grant outlined in https://tools.ietf.org/html/rfc6749#section-4.4.
 In this situation, you only need to supply the sdk with your credentials. Your account may incur charges for sessions held.
 
 ```
         ApiClient c = new ApiClient();
-        // Null for the `authorization` parameter will result in the sdk attempting to recover an authorization for itself.
+        // Null for the `authorization` parameter will result in the sdk
+        // attempting to recover an authorization for the owner of the key and secret.
         c.setCredentials(key, secret, null);
 ```
 
@@ -219,7 +220,15 @@ See instructions on setting up your account for allowing the oauth2 authorizatio
 
         // Start to use this authorization
         c.setAuthorization(authorization);
+
+        // Or create a new Client
+        ApiClient c2 = new ApiClient();
+        c.setCredentials(key, secret, authorization);
+
+        // Create a session for that user.
         SessionApi api = new SessionApi(c);
+
+
 
         // .... now book a session for that use.
         Session session = api.createSession(scr);
