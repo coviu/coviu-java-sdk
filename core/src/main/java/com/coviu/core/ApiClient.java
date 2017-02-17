@@ -163,6 +163,20 @@ public class ApiClient {
      * Constructor for ApiClient
      */
     public ApiClient() {
+        init();
+    }
+
+    public ApiClient(String apiKey, String apiKeySecret) {
+        init();
+        setCredentials(apiKey, apiKeySecret);
+    }
+
+    public ApiClient(String apiKey, String apiKeySecret, String authorization) {
+        init();
+        setCredentials(apiKey, apiKeySecret, authorization);
+    }
+
+    private void init() {
         httpClient = new OkHttpClient();
 
         verifyingSsl = true;
@@ -441,9 +455,19 @@ public class ApiClient {
         throw new RuntimeException("No OAuth configured!");
     }
 
+    /**
+     * Set the client id and secret for oauth2 basic auth.
+     *
+     * @param apiKey the api key issued for your account
+     * @param apiKeySecret the password for supplied api key
+     */
+    public void setCredentials(String apiKey, String apiKeySecret) {
+        setCredentials(apiKey, apiKeySecret);
+    }
+
 
     /**
-     * Set the auhorization observer that receives updates to the authorization being used by authenticators.
+     * Set the authorization observer that receives updates to the authorization being used by authenticators.
      * @param authorizationObserver the new authorization observer;
      */
     public void setAuthorizationObserver(AuthorizationObserver authorizationObserver) {
@@ -474,6 +498,7 @@ public class ApiClient {
         }
         throw new RuntimeException("No OAuth configured!");
     }
+
     /*
      * Parse date or date time in string format into Date object.
      *
