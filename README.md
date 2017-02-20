@@ -27,6 +27,7 @@ Add this dependency to your project's POM:
 ## Getting Started
 
 The full set of api documentations is available in the [**api directory**](api/sessions/README.md).
+There's also a working example in the [**examples directory**](examples/session/README.md)
 
 ### Create a session
 
