@@ -14,6 +14,7 @@ public class Main {
         try {
             String apiKey = getSystemPropertyOrFail("coviu.api-key");
             String apiKeySecret = getSystemPropertyOrFail("coviu.api-secret");
+
             // Create an api client.
             ApiClient client = new ApiClient();
             client.setCredentials(apiKey, apiKeySecret, null);
